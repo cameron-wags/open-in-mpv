@@ -1,15 +1,12 @@
 
 function playLink(info, tab) {
-    console.log(tab)
-    console.log(info)
-    console.log('Got link: ' + info.linkUrl)
-
     let mpvUrl = 'mpv://' + btoa(info.linkUrl) + "/?quality=best&cookies=no"
 
-    chrome.tabs.create({
-        active: true,
-        url: mpvUrl,
-        index: tab.index // add 1 instead to open to the right of the current tab
+    // Chrome falls back to the OS to handle unknown(to it) protocols prior to navigating.
+    // Therefore we can just redirect the current tab to this url without fear of disrupting it.
+    chrome.tabs.update(
+        tab.id, {
+        url: mpvUrl
     })
 }
 
