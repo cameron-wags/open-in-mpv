@@ -18,8 +18,8 @@ let settings = {
 
 // Store user options in encoded format
 let encoded = {
-    prefix: '',
-    suffix: ''
+    prefix: null,
+    suffix: null
 }
 
 function encodeSettings(settings) {
@@ -36,6 +36,10 @@ function encodeSettings(settings) {
 }
 
 function playLink(info, tab) {
+    if (encoded.prefix === null || encoded.suffix === null) {
+        encodeSettings(settings)
+    }
+
     let mpvUrl = encoded.prefix + btoa(info.linkUrl) + encoded.suffix
 
     // Chrome falls back to the OS to handle unknown(to it) protocols prior to navigating.
