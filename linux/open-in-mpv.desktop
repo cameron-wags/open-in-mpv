@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=open-in-mpv
+Exec=open-in-mpv %u
+Terminal=false
+StartupNotify=false
+MimeType=x-scheme-handler/mpv;
