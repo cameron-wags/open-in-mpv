@@ -1,10 +1,11 @@
-# Chrome extension to open video links with mpv
-Adds a context menu option so that youtube can be browsed normally as well.
-It might not work for most sites, but it works for youtube.
+# Open in MPV
+Adds a context menu option for links to open the linked video in mpv.
+Works for links that youtube-dl can open.
 
 ## Dependencies
  - [mpv](https://mpv.io)
  - [youtube-dl](https://github.com/ytdl-org/youtube-dl)
+ - xdg-utils _(linux only)_
 
 ## Acknowledgements
 This project was inspired by akiirui's
