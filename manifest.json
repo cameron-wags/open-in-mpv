@@ -1,14 +1,16 @@
 {
-    "manifest_version": 2,
-    "name": "Open in MPV",
-    "version": "0.1.0",
-    "background": {
-		"scripts": [
-			"main.js"
-		]
-    },
-    "permissions": [
-        "contextMenus",
-        "tabs"
-    ]
+  "manifest_version": 2,
+  "name": "Open in MPV",
+  "version": "0.1.4",
+  "background": {
+    "scripts": ["main.js"],
+    "persistent": true
+  },
+  "permissions": ["menus", "tabs"],
+  "incognito": "spanning",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{aff86416-24bb-4315-acfc-4e2ca0024594}"
+    }
+  }
 }
