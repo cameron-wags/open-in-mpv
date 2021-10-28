@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
@@ -11,15 +12,19 @@ import (
 const g_separator = "_"
 
 func main() {
+	os.WriteFile("/home/cameron/mpvopen.log", []byte("Hello there"), os.ModeAppend)
+	os.WriteFile("/home/cameron/mpvopen.log", []byte(os.Args[0]), os.ModeAppend)
 	if len(os.Args) != 2 {
 		os.Exit(1)
 	}
 
+	os.WriteFile("/home/cameron/mpvopen.log", []byte(os.Args[1]), os.ModeAppend)
 	command, err := parse(os.Args[1])
 	if err != nil {
 		os.Exit(1)
 	}
-
+	c, _ := json.MarshalIndent(command, "", "  ")
+	os.WriteFile("/home/cameron/mpvopen.log", c, os.ModeAppend)
 	err = exec.Command(command.Path, command.Args...).Start()
 	if err != nil {
 		os.Exit(1)
@@ -72,7 +77,7 @@ func parse(url string) (mpv Command, err error) {
 	if err != nil {
 		return
 	}
-	mpv.Args = append(mpv.Args, videoUrl)
+	mpv.Args = append(mpv.Args, fmt.Sprintf("--url=%s", videoUrl))
 
 	for i := 2; i < len(parts); i += 2 {
 		argName, inErr := decode(parts[i])

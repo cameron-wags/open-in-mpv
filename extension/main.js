@@ -1,23 +1,27 @@
-let settings = {
-  mpvPath: 'mpv',
+const settings = {
+  mpvPath: 'streamlink',
   mpvArgs: [
+    // {
+    //   name: 'no-border',
+    //   value: null
+    // },
     {
-      name: 'no-border',
-      value: null
-    },
-    {
-      name: 'ytdl-format',
-      value: 'bestvideo+bestaudio/best'
-    },
-    {
-      name: 'autofit',
-      value: '60%'
+      name: 'player',
+      value: 'mpv'
     }
+    // {
+    //   name: 'autofit',
+    //   value: '60%'
+    // },
+    // {
+    //   name: 'hwdec',
+    //   value: 'auto'
+    // }
   ]
 }
 
 // Store user options in encoded format
-let encoded = {
+const encoded = {
   prefix: null,
   suffix: null
 }
@@ -40,18 +44,18 @@ function playLink (info, tab) {
     encodeSettings(settings)
   }
 
-  let mpvUrl = encoded.prefix + btoa(info.linkUrl) + encoded.suffix
+  const mpvUrl = encoded.prefix + btoa(info.linkUrl) + encoded.suffix
 
   // Chrome falls back to the OS to handle unknown(to it) protocols prior to navigating.
   // Therefore we can just redirect the current tab to this url without fear of disrupting it.
-  browser.tabs.update(tab.id, {
+  chrome.tabs.update(tab.id, {
     url: mpvUrl
   })
 }
 
-browser.runtime.onInstalled.addListener(function (details) {
+chrome.runtime.onInstalled.addListener(function (details) {
   encodeSettings(settings)
-  browser.menus.create({
+  chrome.contextMenus.create({
     contexts: ['link'],
     enabled: true,
     title: 'Open in MPV',
